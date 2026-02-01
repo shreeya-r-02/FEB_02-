@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maran 💘 Valentine</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>💖</title>
 
 <style>
 *{
-  box-sizing: border-box;
+  box-sizing:border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -17,90 +17,84 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background: linear-gradient(135deg, #ff5f8f, #ff9671);
-  font-family: system-ui, -apple-system;
+  background: radial-gradient(circle at top,#ffd1dc,#fff);
+  font-family: system-ui,-apple-system;
   overflow:hidden;
 }
 
 .card{
-  background:#fff;
   width:92%;
-  max-width:390px;
-  padding:22px;
+  max-width:380px;
+  background:#fff;
   border-radius:26px;
+  padding:22px;
   text-align:center;
-  box-shadow:0 25px 45px rgba(0,0,0,0.25);
+  box-shadow:0 30px 60px rgba(0,0,0,.18);
   animation: pop 0.6s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
 
 img{
   width:100%;
   border-radius:18px;
-  margin-bottom:16px;
+  margin-bottom:14px;
 }
 
 h1{
-  color:#ff2f6d;
-  font-size:1.9rem;
-  line-height:1.3;
+  font-size:1.7rem;
+  color:#ff4d6d;
+  margin-bottom:6px;
 }
 
 p{
-  color:#555;
-  margin:14px 0 26px;
+  color:#666;
   font-size:1.05rem;
   min-height:48px;
 }
 
-.buttons{
+.area{
   position:relative;
-  height:150px;
+  height:160px;
+  margin-top:10px;
 }
 
 button{
   border:none;
-  border-radius:50px;
-  padding:14px 28px;
+  border-radius:32px;
+  padding:14px 30px;
   font-size:1rem;
   cursor:pointer;
-  transition: all 0.25s ease;
+  transition:0.25s ease;
 }
 
 #yes{
-  background:#ff2f6d;
+  background:#ff4d6d;
   color:#fff;
-  box-shadow:0 10px 28px rgba(255,47,109,0.45);
-  animation:pulse 1.3s infinite;
+  box-shadow:0 10px 24px rgba(255,77,109,.35);
 }
 
 #no{
-  background:#f2f2f2;
+  background:#f4f4f4;
   color:#555;
   position:absolute;
-  left:160px;
-  top:20px;
+  left:180px;
+  top:40px;
 }
 
-@keyframes pop{
-  from{transform:scale(0.8);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.1)}
-  100%{transform:scale(1)}
-}
-
-.heart{
+/* floating sparkles */
+.sparkle{
   position:fixed;
-  font-size:22px;
+  font-size:18px;
   animation: float 3s linear forwards;
 }
 
 @keyframes float{
   from{transform:translateY(0);opacity:1}
-  to{transform:translateY(-220px);opacity:0}
+  to{transform:translateY(-200px);opacity:0}
 }
 </style>
 </head>
@@ -108,81 +102,83 @@ button{
 <body>
 
 <div class="card" id="card">
-  <img src="IMG_5766.jpeg" alt="Cute moment">
+  <img src="IMG_5766.jpeg" alt="💛">
 
-  <h1>Maran, will you be my Valentine? 💘</h1>
-  <p id="message">Correct answer already theriyum 😌</p>
+  <h1>Will you be my Valentine?</h1>
 
-  <div class="buttons">
+  <p id="text">Just tap what feels right ✨</p>
+
+  <div class="area">
     <button id="yes">YES 💖</button>
-    <button id="no">NO 🙈</button>
+    <button id="no">NO 🙃</button>
   </div>
 </div>
 
 <script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const msg = document.getElementById("message");
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const text = document.getElementById("text");
 const card = document.getElementById("card");
 
-let yesScale = 1;
-let noScale = 1;
-let attempts = 0;
+let yesSize = 1;
+let noFade = 1;
+let i = 0;
 
-const tamilTexts = [
-  "First of all edhuku yosikra? 😌",
-  "Idhula yosika enna iruku 🙄",
-  "NO option summa show ku dhan 😏",
-  "Seri seri drama podadha",
-  "Maran pls cooperate 😂",
-  "Ayyo ipdi panradhu romba over ah",
-  "Innum yosikriya? brave move 👀",
-  "YES press panna prize iruku 😌",
-  "Okay enough, now YES 😤❤️"
+/* 🔁 PLAYFUL LOOP TEXTS */
+const lines = [
+  "No sollriya🙂",
+  "Angel ku no solriya",
+  "Nalla yosichtiya 🤨",
+  "NO chumma decoration ku dhan vechen",
+  "Eheii dho da",
+  "Maran😒",
+  "Idhan mudiva",
+  "Sirikra dhane🤠"
+  "Seri correct ah amuthu🌝"
 ];
 
-function moveNo(){
+function dodge(){
   const x = Math.random()*260 - 130;
   const y = Math.random()*160 - 80;
 
-  noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
+  no.style.transform = `translate(${x}px,${y}px) scale(${noFade})`;
 
-  yesScale += 0.18;
-  noScale -= 0.07;
+  yesSize += 0.12;
+  noFade -= 0.06;
 
-  yesBtn.style.transform = `scale(${yesScale})`;
-  noBtn.style.opacity = noScale;
+  yes.style.transform = `scale(${yesSize})`;
+  no.style.opacity = noFade;
 
-  msg.innerText = tamilTexts[attempts % tamilTexts.length];
-  attempts++;
+  text.innerText = lines[i % lines.length];
+  i++;
 
-  if(noScale < 0.3){
-    noBtn.innerText = "seri seri 😭";
+  if(noFade < 0.4){
+    no.innerText = "😅";
   }
 }
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("touchstart", moveNo);
+no.addEventListener("mouseover", dodge);
+no.addEventListener("touchstart", dodge);
 
-yesBtn.addEventListener("click", ()=>{
+yes.addEventListener("click", ()=>{
   card.innerHTML = `
-    <h1>FINALLY 😤💘</h1>
-    <p>Maran said YES 🥹❤️</p>
-    <p>Screenshot eduthu marakkaadha 😌🌹</p>
+    <h1>💖</h1>
+    <p>That was easy.</p>
+    <p>Happy Valentine’s Day ✨</p>
   `;
-  hearts();
+  celebrate();
 });
 
-function hearts(){
-  for(let i=0;i<35;i++){
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerText="❤️";
-    h.style.left=Math.random()*100+"vw";
-    h.style.bottom="0";
-    h.style.animationDuration=2+Math.random()*2+"s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),3000);
+function celebrate(){
+  for(let i=0;i<30;i++){
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.innerText = ["💖","✨","🤍"][Math.floor(Math.random()*3)];
+    s.style.left = Math.random()*100 + "vw";
+    s.style.bottom = "0";
+    s.style.animationDuration = 2 + Math.random()*2 + "s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),3000);
   }
 }
 </script>
